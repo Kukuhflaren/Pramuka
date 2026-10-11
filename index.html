@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+        
+        <title>Pembuat Soal Pramuka</title>
+        
+        <link rel="icon" href="data:,">
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+    
+    <body>
+        <main>
+            <div id="home" class="screen on">
+            
+                <h1>🏕️ Pembuat Soal Pramuka</h1>
+            
+                <p>Pilih kategori untuk membuat soal otomatis.</p>
+            
+                <div class="grid" id="cats"></div>
+        
+            </div>
+
+            <div id="setup" class="screen">
+            
+                <button class="b g" onclick="show('home')">← Beranda</button>
+            
+                <h2 id="stitle"></h2>
+
+                <div id="sRand">
+                
+                    <label>Jumlah soal (1-100)</label>
+                
+                    <div class="row">
+                        <input type="range" id="nR" min="1" max="100" value="10">
+                        <input type="number" id="nN" min="1" max="100" value="10">
+                    </div>
+
+                    <label>Bentuk soal</label>
+                
+                    <select id="form">
+                        <option value="mix">Campuran</option>
+                        <option value="isi">Hanya Isian</option>
+                        <option value="pg">Hanya PG</option>
+                    </select>
+
+                    <div id="optW">
+                        <label>Jumlah opsi</label>
+                    
+                        <select id="nopt">
+                            <option>3</option>
+                            <option selected>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+
+                    <button class="b" onclick="genRandom()">
+                    
+                        Buat Soal
+                    </button>
+            
+                </div>
+
+
+                <div id="sSandi">
+                    <div id="st1">
+                    
+                    <label>Jumlah soal (1-100)</label>
+                    
+                    <div class="row">
+                        <input type="range" id="nR2" min="1" max="100" value="5">
+                        <input type="number" id="nN2" min="1" max="100" value="5">
+                    </div>
+                    
+                    <button class="b" onclick="toStep2()">Lanjut ke Step 2</button>
+                
+                    </div>
+
+                    <div id="st2" style="display:none">
+                        <div class="box">
+                            <b id="cnt"></b>
+
+                            <label>Kalimat</label>
+                            <textarea id="kal" rows="2"></textarea>
+                        
+                            <label>Jenis sandi</label>
+                            <select id="jns"></select>
+                            <div id="keys"></div>
+
+                            <label>Preview</label>
+                            <div class="pv" id="pv"></div>
+                        </div>
+
+                        <button class="b g" onclick="nav(-1)">‹ Prev</button>
+                        <button class="b g" onclick="nav(1)">Next ›</button>
+                        <button class="b r" onclick="show('home')">Batalkan</button>
+                        <button class="b" onclick="finishSandi()">Selesai</button>
+                
+                    </div>
+            
+                </div>
+
+
+                <div id="sMorse">
+                    <label>Bunyi</label>
+                    
+                    <select id="snd">
+                        <option value="sine">Standar</option>
+                        <option value="triangle">Peluit</option>
+                        <option value="square">Mesin</option>
+                        <option value="sawtooth">Vintage</option>
+                    </select>
+
+                    <label>Frekuensi: <span id="frv">800</span> Hz</label>
+                
+                    <input type="range" id="fr" min="400" max="3000" value="800" oninput="frv.textContent=this.value">
+
+                    <label>Kecepatan: <span id="wpv">15</span> WPM</label>
+                
+                    <input type="range" id="wpm" min="1" max="100" value="15" oninput="wpv.textContent=this.value">
+
+                    <label>Kalimat</label>
+                    <textarea id="mt" rows="3" oninput="mp.textContent=toMorse(this.value)">SIAGA</textarea>
+                    <div class="box pv" id="mp">... .. .- --. .-</div>
+
+                    <button class="b" onclick="playMorse()">▶ Putar</button>
+                    <button class="b g" onclick="stopMorse()">■ Stop</button>
+            
+                </div>
+        
+            </div>
+
+
+            <div id="gen" class="screen">
+            
+                <h2>Membuat soal…</h2>
+                <div class="bar"><i id="pb"></i></div>
+        
+            </div>
+
+
+            <div id="disp" class="screen">
+                <div class="noprint">
+                
+                    <button class="b g" onclick="show('home')">← Kembali</button>
+                    <button class="b" onclick="togKJ()">👁️ Lihat Jawaban</button>
+                    <button class="b" onclick="save()">💾 Simpan</button>
+                    <button class="b" onclick="dl(0)">📥 Download Soal</button>
+                    <button class="b" onclick="dl(1)">📥 Download KJ</button>
+                    <button class="b" onclick="window.print()">🖨️ Cetak</button>
+            
+                </div>
+            
+                <div class="wrap">
+                    <div id="sheet"></div>
+                </div>
+        
+            </div>
+
+        </main>
+    
+        <footer class="ft">Saran &amp; komentar? Hubungi WhatsApp 
+        
+            <a href="https://wa.me/6285157235115" target="_blank" rel="noopener">0851-5723-5115</a>
+    
+        </footer>
+    
+        <div id="toast"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+        <script src="data/bank-pk.js"></script>
+        <script src="data/bank-tali.js"></script>
+        <script src="data/bank-kompas.js"></script>
+        <script src="data/bank-surv.js"></script>
+        <script src="data/bank-pppk.js"></script>
+        <script src="data/bank-topo.js"></script>
+        <script src="data/bank-peta.js"></script>
+        <script src="js/sandi.js"></script>
+        <script src="js/app.js"></script>
+
+    </body>
+</html>
