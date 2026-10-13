@@ -1,6 +1,8 @@
 # Pembuat Soal Pramuka
 Aplikasi web (HTML, CSS, JavaScript biasa, tanpa server) untuk membuat soal pramuka secara otomatis: Pengetahuan Kepramukaan, Sandi, Morse, Tali Temali, Kompas, Survival, PPPK, Topografi, dan Pemetaan. Soal tampil dalam format A4 dan bisa diunduh sebagai PDF atau dicetak.
 
+https://kukuhflaren.github.io/Pramuka/
+
 ## Cara membuka
 Klik dua kali `index.html`. Tidak perlu instalasi. Untuk pengembangan, gunakan ekstensi *Live Server* di VS Code agar halaman otomatis ter-refresh.
 
